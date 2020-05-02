@@ -11,25 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
+
+        <org.eazegraph.lib.charts.ValueLineChart
+            android:id="@+id/cubiclinechart"
+            android:layout_width="234dp"
+            android:layout_height="124dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="15dp"
+            card_view:egCurveSmoothness="0.4"
+            card_view:egLegendHeight="40dp"
+            card_view:egShowStandardValue="true"
+            card_view:egUseCubic="true"
+            card_view:egUseOverlapFill="true" />
+
         <TextView
             android:id="@+id/type"
-            android:layout_width="171dp"
-            android:layout_height="74dp"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="61dp"
-            android:layout_marginEnd="27dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginEnd="107dp"
+            android:padding="10dp"
             android:text="IRON MAN"
-            android:textSize="30dp"
-            android:padding="10dp" />
-
-        <ImageView
-            android:layout_width="140dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ironman">
-
-        </ImageView>
-
+            android:textSize="30dp" />
 
 
     </RelativeLayout>

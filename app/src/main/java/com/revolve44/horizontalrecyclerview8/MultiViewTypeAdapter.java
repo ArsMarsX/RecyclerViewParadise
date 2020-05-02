@@ -15,7 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by anupamchugh on 09/02/16.
@@ -76,6 +83,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
     public static class GraphTypeViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtType;
+        ValueLineChart mCubicValueLineChart;
         //CardView cardView2;
 
         public GraphTypeViewHolder(View itemView) {
@@ -83,6 +91,43 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             this.txtType = (TextView) itemView.findViewById(R.id.type);
             //this.cardView2 = (CardView) itemView.findViewById(R.id.card_view);
+            mCubicValueLineChart = (ValueLineChart) itemView.findViewById(R.id.cubiclinechart);
+
+            HashMap<String, Integer> hash = new HashMap<>();
+            hash.put("cat", 1);
+            hash.put("dog", 2);
+            hash.put("bird", 3);
+
+            Set<String> keys = hash.keySet();
+            Collection<Integer> value = hash.values();
+
+            ValueLineSeries series = new ValueLineSeries();
+            series.setColor(0xFF56B7F1);
+
+
+            //series.addPoint(new ValueLinePoint("lol", 2.4f));
+
+            series.addPoint(new ValueLinePoint("0",   0f));
+
+            for (String key : hash.keySet()) {
+                series.addPoint(new ValueLinePoint(key,   (float)hash.get(key)));
+            }
+            series.addPoint(new ValueLinePoint("0",   0f));
+
+//            series.addPoint(new ValueLinePoint("Feb", 3.4f));
+//            series.addPoint(new ValueLinePoint("Mar", .4f));
+//            series.addPoint(new ValueLinePoint("Apr", 1.2f));
+//            series.addPoint(new ValueLinePoint("Mai", 2.6f));
+//            series.addPoint(new ValueLinePoint("Jun", 1.0f));
+//            series.addPoint(new ValueLinePoint("Jul", 3.5f));
+//            series.addPoint(new ValueLinePoint("Aug", 2.4f));
+//            series.addPoint(new ValueLinePoint("Sep", 2.4f));
+//            series.addPoint(new ValueLinePoint("Oct", 3.4f));
+//            series.addPoint(new ValueLinePoint("Nov", .4f));
+//            series.addPoint(new ValueLinePoint("Dec", 1.3f));
+
+            mCubicValueLineChart.addSeries(series);
+            mCubicValueLineChart.startAnimation();
         }
     }
 
@@ -183,7 +228,6 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
                     break;
                 case Model.GRAPH_TYPE:
                     ((GraphTypeViewHolder) holder).txtType.setText(object.text);
-
                     break;
             }
         }
