@@ -21,6 +21,7 @@ import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -93,12 +94,18 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
             //this.cardView2 = (CardView) itemView.findViewById(R.id.card_view);
             mCubicValueLineChart = (ValueLineChart) itemView.findViewById(R.id.cubiclinechart);
 
-            HashMap<String, Integer> hash = new HashMap<>();
-            hash.put("cat", 1);
-            hash.put("dog", 2);
-            hash.put("bird", 3);
+            HashMap<Integer, Integer> hash = new HashMap<>();
+            hash.put(1, 1);
+            hash.put(2, 2);
+            hash.put(3, 3);
 
-            Set<String> keys = hash.keySet();
+            // Put keys into an ArrayList and sort it.
+            Set<Integer> set = hash.keySet();
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            list.addAll(set);
+            Collections.sort(list);
+
+            Set<Integer> keys = hash.keySet();
             Collection<Integer> value = hash.values();
 
             ValueLineSeries series = new ValueLineSeries();
@@ -107,12 +114,17 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             //series.addPoint(new ValueLinePoint("lol", 2.4f));
 
-            series.addPoint(new ValueLinePoint("0",   0f));
-
-            for (String key : hash.keySet()) {
-                series.addPoint(new ValueLinePoint(key,   (float)hash.get(key)));
+            //series.addPoint(new ValueLinePoint(0,   0f));
+            series.addPoint(new ValueLinePoint("0",   0.5f));
+            for (Integer key : list) {
+                series.addPoint(new ValueLinePoint(String.valueOf(key),   (float)hash.get(key)));
             }
-            series.addPoint(new ValueLinePoint("0",   0f));
+
+            //OR YOU MAY USE BELOW (WITHOUT SORTING)
+//            for (Integer key : hash.keySet()) {
+//                series.addPoint(new ValueLinePoint(String.valueOf(key),   (float)hash.get(key)));
+//            }
+            //series.addPoint(new ValueLinePoint(0,   0f));
 
 //            series.addPoint(new ValueLinePoint("Feb", 3.4f));
 //            series.addPoint(new ValueLinePoint("Mar", .4f));
@@ -125,7 +137,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 //            series.addPoint(new ValueLinePoint("Oct", 3.4f));
 //            series.addPoint(new ValueLinePoint("Nov", .4f));
 //            series.addPoint(new ValueLinePoint("Dec", 1.3f));
-
+            mCubicValueLineChart.isUseOverlapFill();
             mCubicValueLineChart.addSeries(series);
             mCubicValueLineChart.startAnimation();
         }
